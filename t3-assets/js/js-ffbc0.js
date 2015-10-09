@@ -1,0 +1,90 @@
+
+
+/*===============================
+/webplus/plugins/system/t3/base-bs3/js/jquery.tap.min.js
+================================================================================*/;
+!function(a,b){"use strict";var c,d,e,f="._tap",g="._tapActive",h="tap",i="clientX clientY screenX screenY pageX pageY".split(" "),j={count:0,event:0},k=function(a,c){var d=c.originalEvent,e=b.Event(d);e.type=a;for(var f=0,g=i.length;g>f;f++)e[i[f]]=c[i[f]];return e},l=function(a){if(a.isTrigger)return!1;var c=j.event,d=Math.abs(a.pageX-c.pageX),e=Math.abs(a.pageY-c.pageY),f=Math.max(d,e);return a.timeStamp-c.timeStamp<b.tap.TIME_DELTA&&f<b.tap.POSITION_DELTA&&(!c.touches||1===j.count)&&o.isTracking},m=function(a){if(!e)return!1;var c=Math.abs(a.pageX-e.pageX),d=Math.abs(a.pageY-e.pageY),f=Math.max(c,d);return Math.abs(a.timeStamp-e.timeStamp)<750&&f<b.tap.POSITION_DELTA},n=function(a){if(0===a.type.indexOf("touch")){a.touches=a.originalEvent.changedTouches;for(var b=a.touches[0],c=0,d=i.length;d>c;c++)a[i[c]]=b[i[c]]}a.timeStamp=Date.now?Date.now():+new Date},o={isEnabled:!1,isTracking:!1,enable:function(){o.isEnabled||(o.isEnabled=!0,c=b(a.body).on("touchstart"+f,o.onStart).on("mousedown"+f,o.onStart).on("click"+f,o.onClick))},disable:function(){o.isEnabled&&(o.isEnabled=!1,c.off(f))},onStart:function(a){a.isTrigger||(n(a),(!b.tap.LEFT_BUTTON_ONLY||a.touches||1===a.which)&&(a.touches&&(j.count=a.touches.length),o.isTracking||(a.touches||!m(a))&&(o.isTracking=!0,j.event=a,a.touches?(e=a,c.on("touchend"+f+g,o.onEnd).on("touchcancel"+f+g,o.onCancel)):c.on("mouseup"+f+g,o.onEnd))))},onEnd:function(a){var c;a.isTrigger||(n(a),l(a)&&(c=k(h,a),d=c,b(j.event.target).trigger(c)),o.onCancel(a))},onCancel:function(a){a&&"touchcancel"===a.type&&a.preventDefault(),o.isTracking=!1,c.off(g)},onClick:function(a){return!a.isTrigger&&d&&d.isDefaultPrevented()&&d.target===a.target&&d.pageX===a.pageX&&d.pageY===a.pageY&&a.timeStamp-d.timeStamp<750?(d=null,!1):void 0}};b(a).ready(o.enable),b.tap={POSITION_DELTA:10,TIME_DELTA:400,LEFT_BUTTON_ONLY:!0}}(document,jQuery);
+
+
+/*===============================
+/webplus/plugins/system/t3/base-bs3/js/script.js
+================================================================================*/;
+/*
+     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ @license       GNU General Public License version 2 or later; see LICENSE.txt
+ @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+                & Google group to become co-author)
+ @Google group: https://groups.google.com/forum/#!forum/t3fw
+ @Link:         http://t3-framework.org 
+------------------------------------------------------------------------------
+*/
+!function(a){if(void 0==a.browser||void 0==a.browser.msie)if(a.browser={msie:!1,version:0},match=navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/)||navigator.userAgent.match(/Trident.*rv:([0-9]{1,}[\.0-9]{0,})/))a.browser.msie=!0,a.browser.version=match[1];a.browser.msie&&a("html").addClass("ie"+Math.floor(a.browser.version));a(document).ready(function(){window.getComputedStyle||(window.getComputedStyle=function(a,b){this.el=a;this.getPropertyValue=function(b){var c=/(\-([a-z]){1})/g;"float"==
+b&&(b="styleFloat");c.test(b)&&(b=b.replace(c,function(a,b,c){return c.toUpperCase()}));return a.currentStyle[b]?a.currentStyle[b]:null};return this});var c=a("<div>").css("display","none").addClass("body-data-holder").appendTo(a("body"));try{var b=window.getComputedStyle(c[0],":before");if(b){var d=b.getPropertyValue("content");if(d){var e=d.match(/([\da-z\-]+)/gi),b={};if(e&&e.length)for(d=0;d<e.length;d++)b[e[d++]]=d<e.length?e[d]:null;a("body").data(b)}}}finally{c.remove()}});(function(){var c=
+a.support,b;a:{b=document.createElement("div").style;for(var d=["t","webkitT","MozT","msT","OT"],e,f=0,g=d.length;f<g;f++)if(e=d[f]+"ransform",e in b){b=e;break a}b=!1}c.t3transform=b})();a("html").addClass("ontouchstart"in window?"touch":"no-touch");a(document).ready(function(){(function(){if(window.MooTools&&window.MooTools.More&&Element&&Element.implement){var c=Element.prototype.hide,b=Element.prototype.show,d=Element.prototype.slide;Element.implement({show:function(c){return arguments.callee&&
+arguments.callee.caller&&-1!==arguments.callee.caller.toString().indexOf("isPropagationStopped")?this:a.isFunction(b)&&b.apply(this,c)},hide:function(){return arguments.callee&&arguments.callee.caller&&-1!==arguments.callee.caller.toString().indexOf("isPropagationStopped")?this:a.isFunction(c)&&c.apply(this,arguments)},slide:function(b){return arguments.callee&&arguments.callee.caller&&-1!==arguments.callee.caller.toString().indexOf("isPropagationStopped")?this:a.isFunction(d)&&d.apply(this,b)}})}})();
+a.fn.tooltip.Constructor&&a.fn.tooltip.Constructor.DEFAULTS&&(a.fn.tooltip.Constructor.DEFAULTS.html=!0);a.fn.popover.Constructor&&a.fn.popover.Constructor.DEFAULTS&&(a.fn.popover.Constructor.DEFAULTS.html=!0);a.fn.tooltip.defaults&&(a.fn.tooltip.defaults.html=!0);a.fn.popover.defaults&&(a.fn.popover.defaults.html=!0);(function(){window.jomsQuery&&jomsQuery.fn.collapse&&(a('[data-toggle="collapse"]').on("click",function(c){a(a(this).attr("data-target")).eq(0).collapse("toggle");c.stopPropagation();
+return!1}),jomsQuery("html, body").off("touchstart.dropdown.data-api"))})();a.fn.chosen&&"rtl"==a(document.documentElement).attr("dir")&&a("select").addClass("chzn-rtl")});a(window).load(function(){if(!a(document.documentElement).hasClass("off-canvas-ready")&&(a(".navbar-collapse-fixed-top").length||a(".navbar-collapse-fixed-bottom").length)){var c=a('.btn-navbar[data-toggle="collapse"]');if(c.length&&c.data("target")){var b=a(c.data("target"));if(b.length){var d=b.closest(".navbar-collapse-fixed-top").length;
+c.on("click",function(){var e=window.innerHeight||a(window).height();a.support.transition||(b.parent().css("height",!c.hasClass("collapsed")&&c.data("t3-clicked")?"":e),c.data("t3-clicked",1));b.addClass("animate").css("max-height",e-(d?parseFloat(b.css("top"))||0:parseFloat(b.css("bottom"))||0))});b.on("shown hidden",function(){b.removeClass("animate")})}}}})}(jQuery);
+
+
+/*===============================
+/webplus/plugins/system/t3/base-bs3/js/menu.js
+================================================================================*/;
+/*
+ Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ @license GNU General Public License version 2 or later; see LICENSE.txt
+ @authors JoomlArt, JoomlaBamboo, (contribute to this project at github &
+          Google group to become co-author)
+ @Google group: https://groups.google.com/forum/#!forum/t3fw
+ @Link: http://t3-framework.org
+        ------------------------------------------------------------------------------
+*/
+(function(e){var m=function(a,b){this.$menu=e(a);this.$menu.length&&(this.options=e.extend({},e.fn.t3menu.defaults,b),this.child_open=[],this.loaded=!1,this.start())};m.prototype={constructor:m,start:function(){if(!this.loaded){this.loaded=!0;var a=this,b=this.options,d=this.$menu;this.$items=d.find("li");this.$items.each(function(d,k){var f=e(this),c=f.children(".dropdown-menu"),h=f.children("a"),l={$item:f,child:c.length,link:h.length,clickable:!(h.length&&c.length),mega:f.hasClass("mega"),status:"close",
+timer:null,atimer:null};f.data("t3menu.item",l);if(c.length&&!b.hover)f.on("click",function(c){c.stopPropagation();f.hasClass("group")||"close"!=l.status||(c.preventDefault(),a.show(l))});else f.on("click",function(a){a.stopPropagation()});f.find("a > .caret").on("click tap",function(a){l.clickable=!1});if(b.hover&&(f.on("mouseover",function(c){if(!f.hasClass("group")){var b=e(c.target);b.data("show-processed")||(b.data("show-processed",!0),setTimeout(function(){b.data("show-processed",!1)},10),a.show(l))}}).on("mouseleave",
+function(c){if(!f.hasClass("group")){var b=e(c.target);b.data("hide-processed")||(b.data("hide-processed",!0),setTimeout(function(){b.data("hide-processed",!1)},10),a.hide(l,b))}}),h.length&&c.length))h.on("click",function(a){return l.clickable})});e(document.body).on("tap hideall.t3menu",function(b){clearTimeout(a.timer);a.timer=setTimeout(e.proxy(a.hide_alls,a),"tap"==b.type?500:a.options.hidedelay)});d.find(".mega-dropdown-menu").on("hideall.t3menu",function(a){a.stopPropagation();a.preventDefault();
+return!1});d.find("input, select, textarea, label").on("click tap",function(a){a.stopPropagation()});d=d.find(".mega-tab");d.length&&d.each(function(){var a=e(this).find(">div>ul"),b=a.find(">li>.dropdown-menu"),d=0;a.data("mega-tab",0);var c=a.parents(".dropdown-menu");c.each(function(){var a=e(this);a.data("prev-style",a.attr("style")).css({visibility:"visible",display:"block"})});b.each(function(){var a=e(this),b=a.attr("style");a.css({visibility:"hidden",display:"block"});d=Math.max(d,a.children().innerHeight());
+b?a.attr("style",b):a.removeAttr("style")});a.css("min-height",d);c.each(function(){var a=e(this);a.data("prev-style")?a.attr("style",a.data("prev-style")):a.removeAttr("style");a.removeData("prev-style")})})}},show:function(a){e.inArray(a,this.child_open)<this.child_open.length-1&&this.hide_others(a);e(document.body).trigger("hideall.t3menu",[this]);clearTimeout(this.timer);clearTimeout(a.timer);clearTimeout(a.ftimer);clearTimeout(a.ctimer);"open"==a.status&&a.$item.hasClass("open")&&this.child_open.length||
+(a.mega?(clearTimeout(a.astimer),clearTimeout(a.atimer),this.position(a.$item),a.astimer=setTimeout(function(){a.$item.addClass("animating")},10),a.atimer=setTimeout(function(){a.$item.removeClass("animating")},this.options.duration+50),a.timer=setTimeout(function(){a.$item.addClass("open")},100)):a.$item.addClass("open"),a.status="open",a.child&&-1==e.inArray(a,this.child_open)&&this.child_open.push(a));a.ctimer=setTimeout(e.proxy(this.clickable,this,a),300);var b=a.$item.find(".mega-tab");b.length&&
+(b=b.find(">div>ul"),b.children().eq(b.data("mega-tab")).addClass("open"));null!==a.$item.parent().data("mega-tab")&&a.$item.parent().data("mega-tab",a.$item.index())},hide:function(a,b){clearTimeout(this.timer);clearTimeout(a.timer);clearTimeout(a.astimer);clearTimeout(a.atimer);clearTimeout(a.ftimer);if(!b||!b.is("input",a.$item)){a.mega&&(a.$item.addClass("animating"),a.atimer=setTimeout(function(){a.$item.removeClass("animating")},this.options.duration));a.timer=setTimeout(function(){a.$item.removeClass("open")},
+100);a.status="close";for(var d=this.child_open.length;d--;)this.child_open[d]===a&&this.child_open.splice(d,1);a.ftimer=setTimeout(e.proxy(this.hidden,this,a),this.options.duration);this.timer=setTimeout(e.proxy(this.hide_alls,this),this.options.hidedelay)}},hidden:function(a){"close"==a.status&&(a.clickable=!1)},hide_others:function(a){var b=this;e.each(this.child_open.slice(),function(d,e){a&&(e==a||e.$item.has(a.$item).length)||b.hide(e)})},hide_alls:function(a,b){if(!a||"tap"==a.type||"hideall"==
+a.type&&this!=b){var d=this;e.each(this.child_open.slice(),function(a,b){b&&d.hide(b)})}},clickable:function(a){a.clickable=!0},position:function(a){var b=a.children(".mega-dropdown-menu"),d=b.is(":visible");d||b.show();var g=a.offset(),k=a.outerWidth(),f=e(window).width()-this.options.sb_width,c=b.outerWidth(),h=a.data("level");d||b.css("display","");b.css({left:"",right:""});if(1==h){a=a.data("alignsub");var l=h=d=0;"justify"!=a&&(a||(a="left"),"center"==a?(d=g.left+k/2,e.support.t3transform||(l=
+-c/2,b.css(this.options.rtl?"right":"left",l+k/2))):d=g.left+("left"==a&&this.options.rtl||"right"==a&&!this.options.rtl?k:0),this.options.rtl?"right"==a?d+c>f&&(h=f-d-c,b.css("left",h),f<c&&b.css("left",h+c-f)):(d<("center"==a?c/2:c)&&(h=d-("center"==a?c/2:c),b.css("right",h+l)),d+("center"==a?c/2:0)-h>f&&b.css("right",d+("center"==a?(c+k)/2:0)+l-f)):"right"==a?d<c&&(h=d-c,b.css("right",h),c>f&&b.css("right",c-f+h)):(d+("center"==a?c/2:c)>f&&(h=f-d-("center"==a?c/2:c),b.css("left",h+l)),0>d-("center"==
+a?c/2:0)+h&&b.css("left",("center"==a?(c+k)/2:0)+l-d)))}else this.options.rtl?a.closest(".mega-dropdown-menu").parent().hasClass("mega-align-right")?g.left+k+c>f&&(a.removeClass("mega-align-right"),0>g.left-c&&b.css("right",g.left+k-c)):0>g.left-c&&(a.removeClass("mega-align-left").addClass("mega-align-right"),g.left+k+c>f&&b.css("left",f-g.left-c)):a.closest(".mega-dropdown-menu").parent().hasClass("mega-align-right")?0>g.left-c&&(a.removeClass("mega-align-right"),g.left+k+c>f&&b.css("left",f-g.left-
+c)):g.left+k+c>f&&(a.removeClass("mega-align-left").addClass("mega-align-right"),0>g.left-c&&b.css("right",g.left+k-c))}};e.fn.t3menu=function(a){return this.each(function(){var b=e(this),d=b.data("megamenu"),g="object"==typeof a&&a;if(!b.parents("#off-canvas-nav").length&&!b.parents("#t3-off-canvas").length)if(!d)b.data("megamenu",new m(this,g));else if("string"==typeof a&&d[a])d[a]()})};e.fn.t3menu.defaults={duration:400,timeout:100,hidedelay:200,hover:!0,sb_width:20};e(document).ready(function(){var a=
+e(".t3-megamenu").data("duration")||0;a&&e('<style type="text/css">.t3-megamenu.animate .animating > .mega-dropdown-menu,.t3-megamenu.animate.slide .animating > .mega-dropdown-menu > div {transition-duration: '+a+"ms !important;-webkit-transition-duration: "+a+"ms !important;}</style>").appendTo("head");var b=a?100+a:500,d="rtl"==e(document.documentElement).attr("dir"),g=e(document.documentElement).hasClass("mm-hover"),k=function(){var a=e('<div style="width:50px;height:50px;overflow:auto"><div/></div>').appendTo("body"),
+b=a.children(),b=b.innerWidth()-b.height(100).innerWidth();a.remove();return b}();e.support.transition||(e(".t3-megamenu").removeClass("animate"),b=100);e("ul.nav").has(".dropdown-menu").t3menu({duration:a,timeout:b,rtl:d,sb_width:k,hover:g});e(window).load(function(){e("ul.nav").has(".dropdown-menu").t3menu({duration:a,timeout:b,rtl:d,sb_width:k,hover:g})})})})(jQuery);
+
+
+/*===============================
+/webplus/plugins/system/t3/base-bs3/js/nav-collapse.js
+================================================================================*/;
+/*
+     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ @license       GNU General Public License version 2 or later; see LICENSE.txt
+ @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
+                & Google group to become co-author)
+ @Google group: https://groups.google.com/forum/#!forum/t3fw
+ @Link:         http://t3-framework.org
+------------------------------------------------------------------------------
+*/
+jQuery(document).ready(function(e){e(".t3-navbar").each(function(){var a=e(this),c=null,d=null;if(a.find(".t3-megamenu").length){c=a.find("ul.level0").clone();d=a.prev(".navbar-collapse");d.length||(d=a.closest(".container, .t3-mainnav").find(".navbar-collapse:empty"));var a=c.find("li[data-id]"),f=a.filter(".current");a.removeClass("mega dropdown mega-align-left mega-align-right mega-align-center mega-align-adjust");a.each(function(){var b=e(this),a=b.find(">:first-child");"DIV"==a[0].nodeName&&
+(a.find(">:first-child").prependTo(b),a.remove());if(b.data("hidewcol"))a.find(".caret").remove(),a.nextAll().remove();else{var c=b.find("ul.level"+b.data("level"));c.length&&($ul=e('<ul class="level'+b.data("level")+' dropdown-menu">'),c.each(function(){e(this).parents(".mega-col-nav").data("hidewcol")||e(this).find(">li").appendTo($ul)}),$ul.children().length&&$ul.appendTo(b));b.find(">div").remove();b.children("ul").length||a.find(".caret").remove();var c=b.hasClass("divider"),d;for(d in b.data())b.removeAttr("data-"+
+d);a.removeAttr("class");for(d in a.data())a.removeAttr("data-"+d);c&&b.addClass("divider")}});f.addClass("current active")}else c=a.find("ul.nav").clone(),d=e(".t3-navbar-collapse:empty, .navbar-collapse:empty").eq(0);c.find('a[data-toggle="dropdown"]').removeAttr("data-toggle").removeAttr("data-target");c.find("> li > ul.dropdown-menu").prev("a").attr("data-toggle","dropdown").attr("data-target","#").parent("li").addClass(function(){return"dropdown"+(1<e(this).data("level")?" dropdown-submenu":
+"")});c.appendTo(d)})});
+
+
+/*===============================
+/webplus/plugins/system/t3/base-bs3/js/thememagic.js
+================================================================================*/;
+/*
+     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ @license       GNU General Public License version 2 or later; see LICENSE.txt
+ @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+                & Google group to become co-author)
+ @Google group: https://groups.google.com/forum/#!forum/t3fw
+ @Link:         http://t3-framework.org 
+------------------------------------------------------------------------------
+*/
+!function(e){T3Theme=window.T3Theme||{};e.extend(T3Theme,{handleLink:function(){var b=document.links,c=document.forms,e=[window.location.protocol,"//",window.location.hostname,window.location.port].join(""),a=/[?&]t3tmid=([^&]*)/.exec(window.location.search),f="themer=1",d,g,a=a?"&"+decodeURI(a[0]).substr(1):"",f=f+a;d=0;for(g=b.length;d<g;d++)a=b[d],a.href&&a.hostname==window.location.hostname&&-1==a.href.indexOf("#")&&(a.href=a.href+(-1!=a.href.lastIndexOf("?")?"&":"?")+(-1==a.href.lastIndexOf("themer=")?
+f:""));d=0;for(g=c.length;d<g;d++)a=c[d],0==a.action.indexOf(e)&&(a.action=a.action+(-1!=a.action.lastIndexOf("?")?"&":"?")+(-1==a.action.lastIndexOf("themer=")?f:""));T3Theme.sid=setTimeout(T3Theme.bodyReady,1E4)},applyLess:function(b){var c=!1;b&&"object"==typeof b&&b.template==T3Theme.template&&(c=!0,T3Theme.vars=b.vars,T3Theme.others=b.others,T3Theme.theme=b.theme);less.refresh(!0);return c},onCompile:function(b,c){if(window.parent!=window&&window.parent.T3Theme)window.parent.T3Theme.onCompile(b,
+c);b>=c&&T3Theme.bodyReady()},bodyReady:function(){clearTimeout(T3Theme.sid);this.ready?e(document.body).addClass("ready"):e(document).ready(function(){T3Theme.ready=1;e(document.body).addClass("ready")})}});e(document).ready(function(){T3Theme.handleLink()})}(jQuery);
